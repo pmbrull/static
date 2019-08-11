@@ -3,7 +3,10 @@ pipeline {
 	stages {
 		stage('Upload to AWS') {
 			steps {
+				sh 'echo "Running Jenkins upload..."'
+
 				withAWS(region:'us-west-2', credentials:'AKIAQXRDPTRO3FC6UHCV') {
+					def identity=awsIdentity(); // Log AWS credentials
     				s3Upload(file:'index.html', bucket:'pmbrull-udacity-jenkins', path:'index.html')
 				}
 			}
